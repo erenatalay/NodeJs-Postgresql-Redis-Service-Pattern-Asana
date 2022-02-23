@@ -1,0 +1,30 @@
+{
+  "name": "asana",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon v1/src/app.js"
+  },
+  "keywords": [
+    "asana"
+  ],
+  "author": "starlince",
+  "license": "MIT",
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "helmet": "^5.0.2",
+    "http-status": "^1.5.0",
+    "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.3",
+    "postgres": "^1.0.2",
+    "sequelize": "^6.16.1",
+    "winston": "^3.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

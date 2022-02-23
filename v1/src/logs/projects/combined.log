@@ -1,0 +1,14 @@
+{"level":"info","message":{"createdAt":"2022-02-18T18:11:06.252Z","id":17,"name":"Projectssss","updatedAt":"2022-02-18T18:11:06.252Z"},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-02-18T18:11:07.165Z","id":18,"name":"Projectssss","updatedAt":"2022-02-18T18:11:07.165Z"},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-02-18T22:47:57.331Z","id":19,"name":"Projectssss","updatedAt":"2022-02-18T22:47:57.331Z"},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-02-18T22:48:23.711Z","id":20,"name":"Projectsss","updatedAt":"2022-02-18T22:48:23.711Z"},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-02-19T20:45:53.818Z","id":21,"name":"Laravel Projesi","updatedAt":"2022-02-19T20:45:53.818Z"},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-02-19T20:46:12.237Z","id":22,"name":"Nodejs Projesi","updatedAt":"2022-02-19T20:46:12.237Z"},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-02-19T20:46:17.563Z","id":23,"name":"GoLAng Projesi","updatedAt":"2022-02-19T20:46:17.563Z"},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-02-19T20:46:22.164Z","id":24,"name":"React Projesi","updatedAt":"2022-02-19T20:46:22.164Z"},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-02-19T20:46:29.039Z","id":25,"name":"React Native Projesi","updatedAt":"2022-02-19T20:46:29.039Z"},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-02-19T21:23:34.652Z","id":1,"name":"React Native Projesi","updatedAt":"2022-02-19T21:23:34.652Z","user_id":null},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-02-19T21:29:22.155Z","id":2,"name":"React Native Projesii","updatedAt":"2022-02-19T21:29:22.155Z","user_id":1},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-02-19T21:29:50.686Z","id":3,"name":"Laravel Projesii","updatedAt":"2022-02-19T21:29:50.686Z","user_id":1},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-02-19T21:29:57.485Z","id":4,"name":"Javascript Projesii","updatedAt":"2022-02-19T21:29:57.485Z","user_id":1},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-02-19T21:30:02.895Z","id":5,"name":"NodeJs Projesii","updatedAt":"2022-02-19T21:30:02.895Z","user_id":1},"service":"project-service"}

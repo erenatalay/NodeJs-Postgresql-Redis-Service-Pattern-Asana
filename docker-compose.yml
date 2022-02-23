@@ -1,0 +1,14 @@
+version: "3.1"
+services:
+  postgresdb:
+    image: postgres:latest
+    ports:
+      - 5430:5432
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: asana123
+      POSTGRES_USER: postgres
+    volumes:
+      - data:/data/db
+volumes:
+  data:
