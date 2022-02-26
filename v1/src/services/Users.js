@@ -14,8 +14,15 @@ const list = () => {
     
     return User.findAll({});
 }
+
+const modify = (where,data) => {
+    
+    return User.update(data, { where , returning: true, plain: true })
+
+}
 module.exports = {
     insert,
     list,
-    loginUser
+    loginUser,
+    modify
 }
