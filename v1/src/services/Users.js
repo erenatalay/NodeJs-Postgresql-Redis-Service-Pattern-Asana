@@ -16,7 +16,6 @@ const list = () => {
 }
 
 const modify = (where,data) => {
-    
     return User.update(data, { where , returning: true, plain: true })
 
 }
