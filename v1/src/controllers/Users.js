@@ -1,4 +1,4 @@
-const { insert, list, loginUser, modify } = require("../services/Users")
+const { insert, list, loginUser, modify, remove } = require("../services/Users")
 const projectService = require("../services/Projects")
 
 const httpStatus = require("http-status");
@@ -68,18 +68,36 @@ const resetPassword = (req, res) => {
                 subject: "Password Reset",
                 html: `<b>Talebiniz üzerine şifre sıfırlama işleminiz gerçekleşmiştir  <br /> Giriş yaptıktan sonra şifrenizi değiştirmeyi unutmayınız. <br/> Yeni Şifreniz : ${new_password}</b>`,
             })
-            
+
             res.status(httpStatus.OK).send({
-                message : "Şifre sıfırlama işlemi için sisteme kayıtlı e posta adresinize gereken bilgiler gönderilmiştir."
+                message: "Şifre sıfırlama işlemi için sisteme kayıtlı e posta adresinize gereken bilgiler gönderilmiştir."
             })
         })
         .catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: "Şifre resetleme sırasında bir problem oluştu." }))
 }
 
-const update = (req,res) => {
-    modify({id : req.user?.id},req.body).then(updatedUser => {
+const update = (req, res) => {
+    modify({ id: req.user?.id }, req.body).then(updatedUser => {
         res.status(httpStatus.OK).send(updatedUser[1]);
-    }).catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({error : "Güncelleme işlemi sırasında bir problem oluştu."}))
+    }).catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: "Güncelleme işlemi sırasında bir problem oluştu." }))
+}
+const deleteUser = (req, res) => {
+    if (!req.params?.id) {
+        return res.status(httpStatus.BAD_REQUEST).send({
+            message: "Id Bilgisi Eksik."
+        })
+    }
+
+    remove(req.params?.id)
+        .then((deleteUsers) => {
+            if (!deleteUsers) {
+                return res.status(httpStatus.NOT_FOUND).send({
+                    message: "Böyle bir kayıt bulunmamaktadır."
+                })
+            }
+            res.status(httpStatus.OK).send({ message: "Kullanıcı silinmiştir" })
+
+        }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: "Kayıt silme sırasında bir problem oluştu" }))
 }
 
 module.exports = {
@@ -88,5 +106,7 @@ module.exports = {
     login,
     projectList,
     resetPassword,
-    update
+    update,
+    deleteUser
+
 }
