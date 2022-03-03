@@ -81,6 +81,7 @@ const update = (req, res) => {
         res.status(httpStatus.OK).send(updatedUser[1]);
     }).catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: "Güncelleme işlemi sırasında bir problem oluştu." }))
 }
+
 const deleteUser = (req, res) => {
     if (!req.params?.id) {
         return res.status(httpStatus.BAD_REQUEST).send({
@@ -100,6 +101,22 @@ const deleteUser = (req, res) => {
         }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: "Kayıt silme sırasında bir problem oluştu" }))
 }
 
+const changePassword = (req, res) => {
+    req.body.password = passwordToHash(req.body?.password)
+    modify({ id: req.user?.id }, req.body).then(updatedUser => {
+        res.status(httpStatus.OK).send(updatedUser[1]);
+    }).catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: "Güncelleme işlemi sırasında bir problem oluştu." }))
+}
+
+const updateProfileImage = () => {
+    //Image Control
+    //Upload Logic
+
+    //Db Save 
+
+    //Responses
+}
+
 module.exports = {
     create,
     index,
@@ -107,6 +124,7 @@ module.exports = {
     projectList,
     resetPassword,
     update,
-    deleteUser
-
+    deleteUser,
+    changePassword,
+    updateProfileImage
 }

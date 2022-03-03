@@ -4,6 +4,7 @@ const config = require("./config");
 const routers = require("./api-routes");
 const loaders = require("./loaders");
 const events = require("./scripts/events");
+const fileUpload = require("express-fileupload");
 config();
 loaders();
 events();
@@ -11,7 +12,7 @@ const app = express();
 
 app.use(express.json());
 app.use(helmet());
-
+app.use(fileUpload());
 //routers
 app.use("/api",routers);
 
