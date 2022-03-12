@@ -12,3 +12,12 @@
 {"level":"info","message":{"createdAt":"2022-02-19T21:29:50.686Z","id":3,"name":"Laravel Projesii","updatedAt":"2022-02-19T21:29:50.686Z","user_id":1},"service":"project-service"}
 {"level":"info","message":{"createdAt":"2022-02-19T21:29:57.485Z","id":4,"name":"Javascript Projesii","updatedAt":"2022-02-19T21:29:57.485Z","user_id":1},"service":"project-service"}
 {"level":"info","message":{"createdAt":"2022-02-19T21:30:02.895Z","id":5,"name":"NodeJs Projesii","updatedAt":"2022-02-19T21:30:02.895Z","user_id":1},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-03-10T20:57:00.297Z","id":1,"name":"NodeJs Projesii","updatedAt":"2022-03-10T20:57:00.297Z","user_id":3},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-03-10T20:58:52.725Z","id":2,"name":"NodeJs Projesii","updatedAt":"2022-03-10T20:58:52.725Z","user_id":3},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-03-10T21:13:42.347Z","id":2,"name":"NodeJs Projesii","updatedAt":"2022-03-10T21:13:42.347Z","user_id":1},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-03-11T06:46:46.146Z","id":1,"name":"NodeJs Projesii","updatedAt":"2022-03-11T06:46:46.146Z","user_id":1},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-03-11T06:48:21.905Z","id":2,"name":"NodeJs Projesii","updatedAt":"2022-03-11T06:48:21.905Z","user_id":1},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-03-12T12:04:38.921Z","id":1,"name":"NodeJs Projesii","updatedAt":"2022-03-12T12:04:38.921Z","user_id":1},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-03-12T12:26:05.808Z","id":2,"name":"NodeJs Projesii","updatedAt":"2022-03-12T12:26:05.808Z","user_id":1},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-03-12T12:30:01.750Z","id":3,"name":"Laravel Projesii","updatedAt":"2022-03-12T12:30:01.750Z","user_id":1},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-03-12T12:43:04.091Z","id":4,"name":"Laravel Projesii","updatedAt":"2022-03-12T12:43:04.091Z","user_id":1},"service":"project-service"}

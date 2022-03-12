@@ -1,5 +1,4 @@
 const logger = require("../scripts/logger/Projects")
-const User = require("./user");
 
 'use strict';
 const {
@@ -12,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate({ User }) {
 
-
+      this.belongsTo(User, { foreignKey: 'user_id', onDelete: "CASCADE", onUpdate: "CASCADE" })
 
     }
   };
@@ -23,9 +22,10 @@ module.exports = (sequelize, DataTypes) => {
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      onDelete: "CASCADE",
       references: {
-        model: 'Users',
-        key: 'id'
+        model: 'User',
+        key: 'id',
       },
     },
 
@@ -42,13 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     },
 
   });
-  Projects.associate = function(models) {
-    // associations can be defined here
-    Projects.belongsTo(models.User, {
-      foreignKey: 'user_id',
-      onDelete: 'CASCADE'
-    })
-  };
+
 
   return Projects;
 };

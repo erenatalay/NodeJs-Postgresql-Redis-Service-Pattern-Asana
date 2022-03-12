@@ -98,7 +98,10 @@ const deleteUser = (req, res) => {
             }
             res.status(httpStatus.OK).send({ message: "Kullanıcı silinmiştir" })
 
-        }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: "Kayıt silme sırasında bir problem oluştu" }))
+        }).catch(e =>{ 
+            console.log(e)
+            res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: "Kayıt silme sırasında bir problem oluştu" })
+        })
 }
 
 const changePassword = (req, res) => {

@@ -1,6 +1,6 @@
 
 const { Projects } = require("../models");
-const { User } = require("../models");
+const { Users } = require("../models");
 
 const insert = (data) => {
     const projects = new Projects(data)
@@ -13,15 +13,11 @@ const list = (where) => {
     if (where) {
         return Projects.findAll({
             where,
-            include: [{
-                model: User,
-            }]
+            include: "User"
         });
     }
     return Projects.findAll({
-        include: [{
-            model: User,
-        }]
+        include: "User"
     });
 }
 

@@ -1,6 +1,3 @@
-const Projects = require("./projects");
-
-
 'use strict';
 const {
   Model
@@ -11,8 +8,11 @@ module.exports = (sequelize, DataTypes) => {
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
-     */
+         */
+    static associate({ Projects }) {
+      this.hasMany(Projects, { foreignKey: 'user_id',onDelete : "CASCADE",onUpdate : "CASCADE" })
 
+    }
   };
   User.init({
     full_name: DataTypes.STRING,
@@ -25,13 +25,7 @@ module.exports = (sequelize, DataTypes) => {
 
   });
 
-  User.associate = function(models) {
-    // associations can be defined here
-    User.hasMany(models.Projects, {
-      foreignKey: 'user_id',
-      onDelete: 'CASCADE'
-    })
-  };
+
 
   return User;
 };
