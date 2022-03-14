@@ -1,3 +1,5 @@
+const logger = require("../scripts/logger/Section")
+
 'use strict';
 const {
   Model
@@ -9,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({User,Projects}) {
+    static associate({ User, Projects }) {
       this.belongsTo(User, { foreignKey: 'user_id', onDelete: "CASCADE", onUpdate: "CASCADE" })
       this.belongsTo(Projects, { foreignKey: 'project_id', onDelete: "CASCADE", onUpdate: "CASCADE" })
       // define association here
@@ -27,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id',
       },
     },
-    project_id:{
+    project_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       onDelete: "CASCADE",
@@ -41,6 +43,14 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Section',
+    hooks: {
+      afterCreate: function (doc) {
+        logger.log({
+          level: "info",
+          message: doc
+        })
+      }
+    },
   });
   return Section;
 };

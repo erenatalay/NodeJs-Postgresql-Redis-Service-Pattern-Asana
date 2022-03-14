@@ -4,3 +4,4 @@
 /v1/src/uploads/users/*
 /v1/src/uploads/tasks/*
 /v1/src/logs/projects/*
+/v1/src/logs/sections/*
