@@ -14,11 +14,11 @@ const list = (where) => {
     if (where) {
         return Section.findAll({
             where,
-            include: "User"
+            include: ["User", "Project"]
         });
     }
     return Section.findAll({
-        include: ["Project","User"]
+        include: ["Project", "User"]
     });
 }
 
@@ -29,7 +29,7 @@ const modify = (data, id) => {
 
 
 const remove = (id) => {
-    return Section.destroy({ where: { id }})
+    return Section.destroy({ where: { id } })
 
 }
 module.exports = {
