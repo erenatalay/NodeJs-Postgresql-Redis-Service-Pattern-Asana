@@ -38,15 +38,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      comments_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Comments',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
+
       assigned_to: {
         type: Sequelize.INTEGER,
         references: {
@@ -71,6 +63,9 @@ module.exports = {
       },
       order: {
         type: Sequelize.INTEGER
+      },
+      isComplated: {
+        type: Sequelize.BOOLEAN
       },
       media : {
         type: Sequelize.JSON,

@@ -1,3 +1,4 @@
+const logger = require("../scripts/logger/Tasks")
 'use strict';
 const {
   Model
@@ -78,7 +79,9 @@ module.exports = (sequelize, DataTypes) => {
     order: {
       type: DataTypes.INTEGER
     },
-
+    isComplated: {
+      type: DataTypes.BOOLEAN
+    },
     comments_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -91,6 +94,14 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Tasks',
+    hooks: {
+      afterCreate: function (doc) {
+        logger.log({
+          level: "info",
+          message: doc
+        })
+      }
+    },
   });
   return Tasks;
 };
