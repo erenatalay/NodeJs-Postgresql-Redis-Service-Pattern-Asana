@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate({ User,Section }) {
 
       this.belongsTo(User, { foreignKey: 'user_id', onDelete: "CASCADE", onUpdate: "CASCADE" })
-      this.hasMany(Section, { foreignKey: 'project_id',onDelete : "CASCADE",onUpdate : "CASCADE" })
+      this.hasMany(Section, { foreignKey: 'section_id',onDelete : "CASCADE",onUpdate : "CASCADE" })
 
     }
   };

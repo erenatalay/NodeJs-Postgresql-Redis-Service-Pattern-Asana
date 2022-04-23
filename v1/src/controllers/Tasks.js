@@ -16,6 +16,7 @@ const index = (req, res) => {
 }
 const create = (req, res) => {
     req.body.user_id = req.user.id;
+    console.log(req.body)
     insert(req.body).then((response) => {
         res.status(httpStatus.CREATED).send(response);
     }).catch((e) => {

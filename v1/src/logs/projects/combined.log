@@ -26,3 +26,4 @@
 {"level":"info","message":{"createdAt":"2022-03-12T19:26:42.760Z","id":5,"name":"Nodejs Projesii","updatedAt":"2022-03-12T19:26:42.760Z","user_id":1},"service":"project-service"}
 {"level":"info","message":{"createdAt":"2022-03-12T19:35:56.381Z","id":6,"name":"Nodejs Projesii","updatedAt":"2022-03-12T19:35:56.381Z","user_id":1},"service":"project-service"}
 {"level":"info","message":{"createdAt":"2022-03-12T19:36:02.044Z","id":7,"name":"Laravel Projesii","updatedAt":"2022-03-12T19:36:02.044Z","user_id":1},"service":"project-service"}
+{"level":"info","message":{"createdAt":"2022-04-23T06:18:56.587Z","id":1,"name":"Laravel Projesii","updatedAt":"2022-04-23T06:18:56.587Z","user_id":1},"service":"project-service"}

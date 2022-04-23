@@ -1,33 +1,33 @@
 
-const { Projects } = require("../models");
+const { Comment } = require("../models");
 
 const insert = (data) => {
-    const projects = new Projects(data)
+    const comment = new Comment(data)
 
-    return projects.save();
+    return comment.save();
 
 }
 
 const list = (where) => {
     if (where) {
-        return Projects.findAll({
+        return Comment.findAll({
             where,
             include: "User"
         });
     }
-    return Projects.findAll({
+    return Comment.findAll({
         include: "User"
     });
 }
 
 const modify = (data, id) => {
-    return Projects.update(data, { where: { id }, returning: true, plain: true })
+    return Comment.update(data, { where: { id }, returning: true, plain: true })
 
 }
 
 
 const remove = (id) => {
-    return Projects.destroy({ where: { id }})
+    return Comment.destroy({ where: { id }})
 
 }
 module.exports = {

@@ -20,7 +20,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      task_id: {
+      task_id:{
         type: Sequelize.INTEGER,
         references: {
           model: 'Tasks',
@@ -28,6 +28,7 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
+      
       },
       createdAt: {
         allowNull: false,

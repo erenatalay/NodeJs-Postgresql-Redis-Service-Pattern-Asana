@@ -1,7 +1,6 @@
 
 const { Tasks } = require("../models");
-const { Users } = require("../models");
-const { Section } = require("../models");
+
 
 const insert = (data) => {
     const tasks = new Tasks(data)

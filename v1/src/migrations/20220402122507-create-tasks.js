@@ -38,7 +38,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-
+    
       assigned_to: {
         type: Sequelize.INTEGER,
         references: {
@@ -53,12 +53,7 @@ module.exports = {
       },
       statues : {
         type: Sequelize.JSON,
-        get() {
-          return JSON.parse(this.getDataValue("statues"));
-        }, 
-        set(value) {
-          return this.setDataValue("statues", JSON.stringify(value));
-        }
+ 
 
       },
       order: {
@@ -69,13 +64,7 @@ module.exports = {
       },
       media : {
         type: Sequelize.JSON,
-        get() {
-          return JSON.parse(this.getDataValue("proofResources"));
-        }, 
-        set(value) {
-          return this.setDataValue("proofResources", JSON.stringify(value));
-        }
-
+    
       },
 
       sub_task : {

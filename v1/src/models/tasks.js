@@ -10,8 +10,13 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
-      // define association here
+    static associate({User,Projects,Section,Comments}) {
+      this.belongsTo(User, { foreignKey: 'user_id', onDelete: "CASCADE", onUpdate: "CASCADE" })
+      this.belongsTo(Projects, { foreignKey: 'project_id', onDelete: "CASCADE", onUpdate: "CASCADE" })
+      this.belongsTo(Section, { foreignKey: 'section_id', onDelete: "CASCADE", onUpdate: "CASCADE" })
+      this.belongsTo(Comments, { foreignKey: 'comments_id', onDelete: "CASCADE", onUpdate: "CASCADE" })
+
+
     }
   };
   Tasks.init({
@@ -35,6 +40,15 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id',
       },
     },
+    section_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Section',
+        key: 'id',
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
+    },
     sub_task : {
       type: DataTypes.INTEGER,
       references: {
@@ -46,12 +60,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     media : {
       type: DataTypes.JSON,
-      get() {
-        return JSON.parse(this.getDataValue("proofResources"));
-      }, 
-      set(value) {
-        return this.setDataValue("proofResources", JSON.stringify(value));
-      }
+   
 
     },
     assigned_to: {
@@ -68,12 +77,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     statues : {
       type: DataTypes.JSON,
-      get() {
-        return JSON.parse(this.getDataValue("statues"));
-      }, 
-      set(value) {
-        return this.setDataValue("statues", JSON.stringify(value));
-      }
+ 
 
     },
     order: {
