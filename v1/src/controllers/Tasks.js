@@ -16,7 +16,6 @@ const index = (req, res) => {
 }
 const create = (req, res) => {
     req.body.user_id = req.user.id;
-    console.log(req.body)
     insert(req.body).then((response) => {
         res.status(httpStatus.CREATED).send(response);
     }).catch((e) => {
@@ -33,9 +32,9 @@ const update = (req, res) => {
         })
     }
 
-    modify(req.body, req.params?.id)
+    modify(req.body, parseInt(req.params?.id))
         .then((updatedProject) => {
-            res.status(httpStatus.OK).send(updatedProject[1])
+            res.status(httpStatus.OK).send(updatedProject)
 
         }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: "Kayıt sırasında bir problem oluştu" }))
 }
@@ -48,7 +47,7 @@ const deletedTask = (req, res) => {
         })
     }
 
-    remove(req.params?.id)
+    remove(parseInt(req.params?.id))
         .then((deletedProject) => {
             if (!deletedProject) {
                 return res.status(httpStatus.NOT_FOUND).send({

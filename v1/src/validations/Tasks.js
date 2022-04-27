@@ -9,10 +9,19 @@ const createValidation = Joi.object({
     due_date : Joi.date(),
     statues : Joi.array(),
     order : Joi.number(),
-    isComplated : Joi.boolean(),
+    isComplate : Joi.boolean(),
 })
 const updateValidation = Joi.object({
     title : Joi.string().min(3),
+    section_id : Joi.number(),
+    project_id : Joi.number(),
+    description : Joi.string().min(8),
+    statues : Joi.string().min(8),
+    assigned_to : Joi.number(),
+    due_date : Joi.date(),
+    statues : Joi.array(),
+    order : Joi.number(),
+    isComplate : Joi.boolean(),
 
 })
 

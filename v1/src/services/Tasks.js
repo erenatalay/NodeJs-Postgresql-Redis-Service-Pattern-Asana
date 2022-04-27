@@ -1,34 +1,36 @@
 
-const { Tasks } = require("../models");
-
+const { PrismaClient } = require('@prisma/client');
+const { task } = new PrismaClient();
 
 const insert = (data) => {
-    const tasks = new Tasks(data)
-
-    return tasks.save();
+    return task.create({ data })
 
 }
 
 const list = (where) => {
     if (where) {
-        return Tasks.findAll({
+        return task.findMany({
             where,
-            include: ["User", "Project"]
+            include: {
+                user: true,
+            },
         });
     }
-    return Tasks.findAll({
-        include: ["Project", "User"]
+    return task.findMany({
+        include: {
+            user: true,
+        },
     });
 }
 
 const modify = (data, id) => {
-    return Tasks.update(data, { where: { id }, returning: true, plain: true })
+    return task.update( {data, where: { id } })
 
 }
 
 
 const remove = (id) => {
-    return Tasks.destroy({ where: { id } })
+    return task.delete({ where: { id } })
 
 }
 module.exports = {

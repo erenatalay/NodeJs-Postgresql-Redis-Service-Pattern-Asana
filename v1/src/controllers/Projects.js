@@ -26,9 +26,9 @@ const update = (req,res) => {
     })
     }
 
-    modify(req.body,req.params?.id)
+    modify(req.body,parseInt(req.params?.id))
     .then((updatedProject) => {
-        res.status(httpStatus.OK).send(updatedProject[1])
+        res.status(httpStatus.OK).send(updatedProject)
       
     }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({error  : "Kayıt sırasında bir problem oluştu"}))
 }
@@ -41,7 +41,7 @@ const deletedProject = (req,res) => {
         })
         }
     
-        remove(req.params?.id)
+        remove(parseInt(req.params?.id))
         .then((deletedProject) => {
             if(!deletedProject){
                 return res.status(httpStatus.NOT_FOUND).send({

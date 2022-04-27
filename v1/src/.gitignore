@@ -1,0 +1,8 @@
+/node_modules
+.env
+/v1/src/config/config.json
+/v1/src/uploads/users/*
+/v1/src/uploads/tasks/*
+/v1/src/logs/projects/*
+/v1/src/logs/sections/*
+/v1/src/logs/tasks/*

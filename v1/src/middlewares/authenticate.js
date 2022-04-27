@@ -11,7 +11,7 @@ const authenticateToken = (req,res,next) => {
        if(err){
            return res.status(httpStatus.FORBIDDEN).send({error : err})
        }
-       req.user = user?.dataValues;
+       req.user = user;
        next();
    })
 }

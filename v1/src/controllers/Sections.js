@@ -4,7 +4,7 @@ const index = (req, res) => {
     if (!req.params.projectId ) {
         return res.status(httpStatus.BAD_REQUEST).send({ error: "Proje Bilgisi eksik" });
     }
-    list({ project_id: req.params.projectId })
+    list({ project_id: parseInt(req.params.projectId) })
         .then(response => {
             if (response.length === 0) {
                 return res.status(httpStatus.NOT_FOUND).send({ error: "Seçtiğiniz veride herhangi bir veri bulunamaktadır" });
@@ -32,9 +32,9 @@ const update = (req, res) => {
         })
     }
 
-    modify(req.body, req.params?.id)
+    modify(req.body, parseInt(req.params?.id))
         .then((updatedProject) => {
-            res.status(httpStatus.OK).send(updatedProject[1])
+            res.status(httpStatus.OK).send(updatedProject)
 
         }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: "Kayıt sırasında bir problem oluştu" }))
 }
@@ -47,7 +47,7 @@ const deletedSection = (req, res) => {
         })
     }
 
-    remove(req.params?.id)
+    remove(parseInt(req.params?.id))
         .then((deletedProject) => {
             if (!deletedProject) {
                 return res.status(httpStatus.NOT_FOUND).send({

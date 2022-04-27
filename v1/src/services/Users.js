@@ -1,28 +1,28 @@
+const { PrismaClient } = require('@prisma/client');
+const { user } = new PrismaClient();
 
-const { User } = require("../models");
 
 const insert = (data) => {
-    const user = new User(data)
-    return user.save();
+
+    return user.create({data})
 
 }
 const loginUser = (loginData) => {
-
-    return User.findOne({ where: loginData })
+    return user.findFirst({ where: loginData })
 }
 const list = () => {
 
-    return User.findAll({});
+    return user.findMany({});
 }
 
 const modify = (where, data) => {
-    return User.update(data, { where, returning: true, plain: true })
+    return user.update({data ,where })
 
 }
 
 
 const remove = (id) => {
-    return User.destroy({ where: { id } })
+    return user.delete({ where: { id } })
 
 }
 

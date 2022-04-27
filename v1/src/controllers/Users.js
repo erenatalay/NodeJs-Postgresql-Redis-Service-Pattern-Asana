@@ -22,10 +22,8 @@ const login = (req, res) => {
             if (!user) {
                 return res.status(httpStatus.NOT_FOUND).send({ message: "Böyle bir kullanıcı bulunmamaktadır." })
             }
-
-
             user = {
-                ...user.dataValues,
+                ...user,
                 tokens: {
                     access_token: generateAccessToken(user),
                     refresh_token: generateRefreshToken(user)
@@ -41,7 +39,6 @@ const login = (req, res) => {
 const create = (req, res) => {
 
     req.body.password = passwordToHash(req.body.password);
-
     insert(req.body).then((response) => {
         res.status(httpStatus.CREATED).send(response);
     }).catch((e) => {
@@ -77,8 +74,8 @@ const resetPassword = (req, res) => {
 }
 
 const update = (req, res) => {
-    modify({ id: req.user?.id }, req.body).then(updatedUser => {
-        res.status(httpStatus.OK).send(updatedUser[1]);
+    modify({ id: parseInt(req.user?.id) }, req.body).then(updatedUser => {
+        res.status(httpStatus.OK).send(updatedUser);
     }).catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: "Güncelleme işlemi sırasında bir problem oluştu." }))
 }
 
@@ -89,7 +86,7 @@ const deleteUser = (req, res) => {
         })
     }
 
-    remove(req.params?.id)
+    remove(parseInt(req.params?.id))
         .then((deleteUsers) => {
             if (!deleteUsers) {
                 return res.status(httpStatus.NOT_FOUND).send({
@@ -107,7 +104,7 @@ const deleteUser = (req, res) => {
 const changePassword = (req, res) => {
     req.body.password = passwordToHash(req.body?.password)
     modify({ id: req.user?.id }, req.body).then(updatedUser => {
-        res.status(httpStatus.OK).send(updatedUser[1]);
+        res.status(httpStatus.OK).send(updatedUser);
     }).catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: "Güncelleme işlemi sırasında bir problem oluştu." }))
 }
 
@@ -122,9 +119,9 @@ const updateProfileImage = (req, res) => {
         if (err) {
             return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: err })
         }
-        modify({ id: req.user.id }, { profile_image: fileName }).then(updatedUser => {
-            res.status(httpStatus.OK).send(updatedUser[1]);
-        }).catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: "Upload  başarılır fakat kayıt sırasında bir problem oluştu." }))
+        modify({ id: parseInt(req.user.id) }, { profile_image: fileName }).then(updatedUser => {
+            res.status(httpStatus.OK).send(updatedUser);
+        }).catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: "Upload  başarılı fakat kayıt sırasında bir problem oluştu." }))
     });
 
 
