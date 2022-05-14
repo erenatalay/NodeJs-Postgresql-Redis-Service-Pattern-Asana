@@ -3,10 +3,10 @@ const TaskCreate = require("../services/Tasks")
 const httpStatus = require("http-status");
 
 const index = (req, res) => {
-    if (!req.params.projectId ) {
-        return res.status(httpStatus.BAD_REQUEST).send({ error: "Proje Bilgisi eksik" });
+    if (!req.params.task_id ) {
+        return res.status(httpStatus.BAD_REQUEST).send({ error: "Görev Bilgisi eksik" });
     }
-    list({ project_id: req.params.projectId })
+    list({ task_id: req.params.projectId })
         .then(response => {
             if (response.length === 0) {
                 return res.status(httpStatus.NOT_FOUND).send({ error: "Seçtiğiniz veride herhangi bir veri bulunamaktadır" });

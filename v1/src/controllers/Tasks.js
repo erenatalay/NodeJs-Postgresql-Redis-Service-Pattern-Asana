@@ -1,9 +1,7 @@
 const { insert, list, modify, remove } = require("../services/Tasks")
 const httpStatus = require("http-status");
 const index = (req, res) => {
-    if (!req.params.projectId ) {
-        return res.status(httpStatus.BAD_REQUEST).send({ error: "Proje Bilgisi eksik" });
-    }
+
     list({ project_id: req.params.projectId })
         .then(response => {
             if (response.length === 0) {
@@ -60,9 +58,41 @@ const deletedTask = (req, res) => {
 
 }
 
+const subTaskCreate = async (req, res) => {
+    const findTask = await list({ id: parseInt(req.params.task_id) })
+    delete findTask[0].user
+    delete findTask[0].id
+    let createTask = await insert({
+        ...findTask[0],
+        title: req.body.title,
+        SubTask: parseInt(req.params.task_id),
+    })
+    return res.status(httpStatus.OK).send(createTask)
+
+}
+
+const subTaskGet = (req, res) => {
+
+    if (!req.params?.id) {
+        return res.status(httpStatus.BAD_REQUEST).send({
+            message: "Id Bilgisi Eksik."
+        })
+    }
+    list({ SubTask: parseInt(req.params.id ) })
+        .then(response => {
+            if (response.length === 0) {
+                return res.status(httpStatus.NOT_FOUND).send({ error: "Seçtiğiniz veride herhangi bir veri bulunamaktadır" });
+            }
+             res.status(httpStatus.OK).send(response)
+        }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e))
+}
+
+
 module.exports = {
     create,
     index,
     update,
-    deletedTask
+    deletedTask,
+    subTaskCreate,
+    subTaskGet
 }

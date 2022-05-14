@@ -1,6 +1,6 @@
 
 const { PrismaClient } = require('@prisma/client');
-const { subTask, task } = new PrismaClient();
+const { subTask } = new PrismaClient();
 
 const insert = (taskId) => {
 
@@ -16,13 +16,13 @@ const list = (where) => {
         return subTask.findMany({
             where,
             include: {
-                user: true,
+                task: true,
             },
         });
     }
     return subTask.findMany({
         include: {
-            user: true,
+            task: true,
         },
     });
 }

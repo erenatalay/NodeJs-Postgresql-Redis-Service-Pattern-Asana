@@ -16,7 +16,9 @@ const list = (where) => {
             },
         });
     }
+
     return task.findMany({
+        
         include: {
             user: true,
         },
