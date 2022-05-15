@@ -13,12 +13,13 @@ const list = (where) => {
             where,
             include: {
                 user: true,
+                assigned: true
             },
         });
     }
 
     return task.findMany({
-        
+
         include: {
             user: true,
         },
@@ -26,13 +27,23 @@ const list = (where) => {
 }
 
 const modify = (data, id) => {
-    return task.update( {data, where: { id } })
+    return task.update({ data, where: { id } })
 
 }
 
 
-const remove = (id) => {
-    return task.delete({ where: { id } })
+const remove = (data) => {
+    return task.deleteMany({
+        where: {
+            OR: [
+                {
+                    id: data.id,
+                },
+                {
+                    SubTask: data.SubTask,
+                }
+            ],
+        }})
 
 }
 module.exports = {
