@@ -59,13 +59,18 @@ const deletedTask = (req, res) => {
 
 const subTaskCreate = async (req, res) => {
     const findTask = await list({ id: parseInt(req.params.task_id) })
+    if(findTask.length === 0){
+      return res.status(httpStatus.NOT_FOUND).send({error : "Böyle bir section bulunamadı."})  
+    }
     delete findTask[0].user
     delete findTask[0].id
+    delete findTask[0].assigned
     let createTask = await insert({
         ...findTask[0],
         title: req.body.title,
         user_id: req.user.id,
         SubTask: parseInt(req.params.task_id),
+        description : req.body.description
     })
     return res.status(httpStatus.OK).send(createTask)
 
@@ -78,6 +83,7 @@ const subTaskGet = (req, res) => {
             message: "Id Bilgisi Eksik."
         })
     }
+
     list({ SubTask: parseInt(req.params.id) })
         .then(response => {
             if (response.length === 0) {
