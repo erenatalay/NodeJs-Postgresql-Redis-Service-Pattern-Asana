@@ -1,38 +1,40 @@
 let BaseModel = null;
 
 class BaseService {
-    constructor(model){
+    constructor(model) {
         BaseModel = model;
     }
-  list(where){
-    if (where) {
+    list(where) {
+        if (where) {
+            return BaseModel.findMany({
+                where,
+               
+            });
+        }
         return BaseModel.findMany({
-            where,
-            include: {
-                user: true,
-            },
+           
         });
     }
-    return BaseModel.findMany({
-        include: {
-            user: true,
-        },
-    });
-  }
 
-  create(data){
+    create(data) {
+        return BaseModel.create({ data })
+    }
+    read(where) {
+        return BaseModel.findFirst({
+            where,
+          
+        });
 
-  }
-  read(where){
+    }
+    update(id, data) {
+        return BaseModel.update({ data, where: { id } })
 
-  }
-  update(id,data){
+    }
 
-  }
+    delete(id) {
+        return BaseModel.delete({ where: { id } })
 
-  delete(id){
-
-  }
+    }
 }
 
-module.exports= BaseService;
+module.exports = BaseService;

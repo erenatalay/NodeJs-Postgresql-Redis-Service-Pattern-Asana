@@ -1,19 +1,29 @@
 const { insert, list ,modify,remove} = require("../services/Projects")
 const httpStatus = require("http-status");
-const Service = require("../services/ProjectService")
-const projectService = new Service();
+const Service = require("../services/Projects")
+const ProjectService = new Service();
 
 const index = (req, res) => {
-    projectService.list()
+    ProjectService.list()
     .then(response => {
         res.status(httpStatus.OK).send(response)
     }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e))
 
 
 }
+
+const findById = (req, res) => {
+    ProjectService.read({id :parseInt(req.params?.id)})
+    .then(response => {
+        res.status(httpStatus.OK).send(response)
+    }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e))
+
+
+}
+
 const create = (req, res) => {
     req.body.user_id = req.user.id;
-    insert(req.body).then((response) => {
+    ProjectService.create(req.body).then((response) => {
         res.status(httpStatus.CREATED).send(response);
     }).catch((e) => {
         res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e)
@@ -61,5 +71,6 @@ module.exports = {
     create,
     index,
     update,
-    deletedProject
+    deletedProject,
+    findById
 }
