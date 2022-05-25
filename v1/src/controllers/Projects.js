@@ -1,4 +1,3 @@
-const { insert, list ,modify,remove} = require("../services/Projects")
 const httpStatus = require("http-status");
 const Service = require("../services/Projects")
 const ProjectService = new Service();
@@ -23,7 +22,7 @@ const findById = (req, res) => {
 
 const create = (req, res) => {
     req.body.user_id = req.user.id;
-    ProjectService.create(req.body).then((response) => {
+    ProjectService.insert(req.body).then((response) => {
         res.status(httpStatus.CREATED).send(response);
     }).catch((e) => {
         res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e)

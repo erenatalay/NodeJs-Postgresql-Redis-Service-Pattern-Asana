@@ -1,38 +1,36 @@
-let BaseModel = null;
 
 class BaseService {
     constructor(model) {
-        BaseModel = model;
+        this.BaseModel = model;
+
     }
+
     list(where) {
         if (where) {
-            return BaseModel.findMany({
+            return this.BaseModel.findMany({
                 where,
-               
+
             });
         }
-        return BaseModel.findMany({
-           
+        return this.BaseModel.findMany({
+
         });
     }
 
-    create(data) {
-        return BaseModel.create({ data })
+    insert(data) {
+        return this.BaseModel.create({ data })
     }
-    read(where) {
-        return BaseModel.findFirst({
-            where,
-          
-        });
+    read(loginData) {
+        return this.BaseModel.findFirst({ where: loginData });
 
     }
     update(id, data) {
-        return BaseModel.update({ data, where: { id } })
+        return this.BaseModel.update({ data, where: { id } })
 
     }
 
     delete(id) {
-        return BaseModel.delete({ where: { id } })
+        return this.BaseModel.delete({ where: { id } })
 
     }
 }

@@ -1,7 +1,8 @@
-const { insert, list ,modify,remove} = require("../services/Comment")
 const httpStatus = require("http-status");
+const Service = require("../services/Comment")
+const CommentService = new Service();
 const index = (req, res) => {
-    list({task_id : parseInt(req.params.task_id)})
+    CommentService.list({task_id : parseInt(req.params.task_id)})
     .then(response => {
         res.status(httpStatus.OK).send(response)
     }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e))
@@ -10,7 +11,7 @@ const index = (req, res) => {
 }
 const create = (req, res) => {
     req.body.user_id = req.user.id;
-    insert(req.body).then((response) => {
+    CommentService.insert(req.body).then((response) => {
         res.status(httpStatus.CREATED).send(response);
     }).catch((e) => {
         res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e)
@@ -26,7 +27,7 @@ const update = (req,res) => {
     })
     }
 
-    modify(req.body,parseInt(req.params?.id))
+    CommentService.modify(req.body,parseInt(req.params?.id))
     .then((updatedProject) => {
         res.status(httpStatus.OK).send(updatedProject)
       
@@ -41,7 +42,7 @@ const deletedProject = (req,res) => {
         })
         }
     
-        remove(parseInt(req.params?.id))
+        CommentService.remove(parseInt(req.params?.id))
         .then((deletedProject) => {
             if(!deletedProject){
                 return res.status(httpStatus.NOT_FOUND).send({

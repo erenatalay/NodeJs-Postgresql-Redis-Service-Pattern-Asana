@@ -1,4 +1,3 @@
-const { insert, list, loginUser, modify, remove } = require("../services/Users")
 const projectService = require("../services/Projects")
 
 const httpStatus = require("http-status");
@@ -6,9 +5,14 @@ const { passwordToHash, generateAccessToken, generateRefreshToken } = require(".
 const uuid = require("uuid");
 const eventEmitter = require("../scripts/events/eventEmitter");
 const path = require("path");
+const Service = require("../services/Users")
+const UserService = new Service();
+const ProjectService = require("../services/Projects")
+const ProjectServices = new ProjectService();
+
 const index = (req, res) => {
 
-    list().then(response => {
+    UserService.list().then(response => {
         res.status(httpStatus.OK).send(response)
     }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e))
 
@@ -17,8 +21,7 @@ const index = (req, res) => {
 
 const login = (req, res) => {
     req.body.password = passwordToHash(req.body.password)
-    loginUser(req.body)
-        .then(user => {
+    UserService.read(req.body).then(user => {
             if (!user) {
                 return res.status(httpStatus.NOT_FOUND).send({ message: "Böyle bir kullanıcı bulunmamaktadır." })
             }
@@ -39,7 +42,7 @@ const login = (req, res) => {
 const create = (req, res) => {
 
     req.body.password = passwordToHash(req.body.password);
-    insert(req.body).then((response) => {
+    UserService.insert(req.body).then((response) => {
         res.status(httpStatus.CREATED).send(response);
     }).catch((e) => {
         res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e)
@@ -48,7 +51,7 @@ const create = (req, res) => {
 }
 
 const projectList = (req, res) => {
-    projectService.list({ user_id: req.user.id }).then(projects => {
+    ProjectServices.list({ user_id: req.user.id }).then(projects => {
         res.status(httpStatus.OK).send(projects);
     }).catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
         error: "Projeleri getiririken belirlenmedik bir hata oluştu."
@@ -57,7 +60,7 @@ const projectList = (req, res) => {
 
 const resetPassword = (req, res) => {
     const new_password = uuid.v4()?.split("-")[0] || `usr-${new Date().getTime()}`
-    modify({ email: req.body.email }, { password: passwordToHash(new_password) })
+    UserService.modify({ email: req.body.email }, { password: passwordToHash(new_password) })
         .then((updatedUser) => {
             if (!updatedUser) return res.status(httpStatus.NOT_FOUND).send({ error: "Böyle bir kullanıcı bulunulmamaktadır." })
             eventEmitter.emit("send_email", {
@@ -74,7 +77,7 @@ const resetPassword = (req, res) => {
 }
 
 const update = (req, res) => {
-    modify({ id: parseInt(req.user?.id) }, req.body).then(updatedUser => {
+    UserService.modify({ id: parseInt(req.user?.id) }, req.body).then(updatedUser => {
         res.status(httpStatus.OK).send(updatedUser);
     }).catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: "Güncelleme işlemi sırasında bir problem oluştu." }))
 }
@@ -86,7 +89,7 @@ const deleteUser = (req, res) => {
         })
     }
 
-    remove(parseInt(req.params?.id))
+    UserService.remove(parseInt(req.params?.id))
         .then((deleteUsers) => {
             if (!deleteUsers) {
                 return res.status(httpStatus.NOT_FOUND).send({
@@ -103,7 +106,7 @@ const deleteUser = (req, res) => {
 
 const changePassword = (req, res) => {
     req.body.password = passwordToHash(req.body?.password)
-    modify({ id: req.user?.id }, req.body).then(updatedUser => {
+    UserService.modify({ id: req.user?.id }, req.body).then(updatedUser => {
         res.status(httpStatus.OK).send(updatedUser);
     }).catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: "Güncelleme işlemi sırasında bir problem oluştu." }))
 }
@@ -119,7 +122,7 @@ const updateProfileImage = (req, res) => {
         if (err) {
             return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: err })
         }
-        modify({ id: parseInt(req.user.id) }, { profile_image: fileName }).then(updatedUser => {
+        UserService.modify({ id: parseInt(req.user.id) }, { profile_image: fileName }).then(updatedUser => {
             res.status(httpStatus.OK).send(updatedUser);
         }).catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: "Upload  başarılı fakat kayıt sırasında bir problem oluştu." }))
     });

@@ -1,10 +1,11 @@
-const { insert, list, modify, remove } = require("../services/Sections")
 const httpStatus = require("http-status");
+const Service = require("../services/Sections")
+const SectionService = new Service();
 const index = (req, res) => {
     if (!req.params.projectId ) {
         return res.status(httpStatus.BAD_REQUEST).send({ error: "Proje Bilgisi eksik" });
     }
-    list({ project_id: parseInt(req.params.projectId) })
+    SectionService.list({ project_id: parseInt(req.params.projectId) })
         .then(response => {
             if (response.length === 0) {
                 return res.status(httpStatus.NOT_FOUND).send({ error: "Seçtiğiniz veride herhangi bir veri bulunamaktadır" });
@@ -16,7 +17,7 @@ const index = (req, res) => {
 }
 const create = (req, res) => {
     req.body.user_id = req.user.id;
-    insert(req.body).then((response) => {
+    SectionService.insert(req.body).then((response) => {
         res.status(httpStatus.CREATED).send(response);
     }).catch((e) => {
         res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e)
@@ -32,7 +33,7 @@ const update = (req, res) => {
         })
     }
 
-    modify(req.body, parseInt(req.params?.id))
+    SectionService.modify(req.body, parseInt(req.params?.id))
         .then((updatedProject) => {
             res.status(httpStatus.OK).send(updatedProject)
 
@@ -47,7 +48,7 @@ const deletedSection = (req, res) => {
         })
     }
 
-    remove(parseInt(req.params?.id))
+    SectionService.remove(parseInt(req.params?.id))
         .then((deletedProject) => {
             if (!deletedProject) {
                 return res.status(httpStatus.NOT_FOUND).send({

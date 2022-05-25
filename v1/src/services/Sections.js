@@ -1,42 +1,31 @@
+const BaseService = require("./BaseService");
 const { PrismaClient } = require('@prisma/client');
-const { section } = new PrismaClient();
+const BaseModel = new PrismaClient();
 
-const insert = (data) => {
-    return section.create({ data })
-}
+class Users extends BaseService {
+    constructor(){
+        super(BaseModel.section)
+    }
 
-const list = (where) => {
+     list (where) {
 
-    if (where) {
-        return section.findMany({
-            where,
+        if (where) {
+            return BaseModel.section.findMany({
+                where,
+                include: {
+                    user: true,
+                    project: true
+                } 
+            });
+        }
+        return BaseModel.section.findMany({
             include: {
                 user: true,
                 project: true
             }
         });
     }
-    return section.findMany({
-        include: {
-            user: true,
-            project: true
-        }
-    });
-}
-
-const modify = (data, id) => {
-    return section.update({ data, where: { id } })
 
 }
 
-
-const remove = (id) => {
-    return section.delete({ where: { id } })
-
-}
-module.exports = {
-    insert,
-    list,
-    modify,
-    remove
-}
+module.exports = Users;
