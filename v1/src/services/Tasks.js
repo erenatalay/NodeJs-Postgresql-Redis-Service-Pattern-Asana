@@ -1,16 +1,23 @@
-
+const BaseService = require("./BaseService");
 const { PrismaClient } = require('@prisma/client');
-const { task } = new PrismaClient();
+const BaseModel = new PrismaClient();
+class Task extends BaseService {
+    constructor() {
+        super(BaseModel.task);
+    }
 
-const insert = (data) => {
-    return task.create({ data })
+    list(where) {
+        if (where) {
+            return BaseModel.task.findMany({
+                where,
+                include: {
+                    user: true,
+                    assigned: true
+                },
+            });
+        }
 
-}
-
-const list = (where) => {
-    if (where) {
-        return task.findMany({
-            where,
+        return BaseModel.task.findMany({
             include: {
                 user: true,
                 assigned: true
@@ -18,37 +25,22 @@ const list = (where) => {
         });
     }
 
-    return task.findMany({
+    remove(data) {
+        return BaseModel.task.deleteMany({
+            where: {
+                OR: [
+                    {
+                        id: data.id,
+                    },
+                    {
+                        SubTask: data.SubTask,
+                    }
+                ],
+            }
+        })
 
-        include: {
-            user: true,
-        },
-    });
-}
-
-const modify = (data, id) => {
-    return task.update({ data, where: { id } })
-
-}
-
-
-const remove = (data) => {
-    return task.deleteMany({
-        where: {
-            OR: [
-                {
-                    id: data.id,
-                },
-                {
-                    SubTask: data.SubTask,
-                }
-            ],
-        }})
+    }
 
 }
-module.exports = {
-    insert,
-    list,
-    modify,
-    remove
-}
+
+module.exports = Task;

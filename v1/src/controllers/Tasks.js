@@ -1,8 +1,10 @@
 const { insert, list, modify, remove } = require("../services/Tasks")
 const httpStatus = require("http-status");
+const Service = require("../services/Tasks")
+const TaskService = new Service();
 const index = (req, res) => {
 
-    list({ section_id: parseInt(req.params.section_id), SubTask: 0 })
+    TaskService.list({ section_id: parseInt(req.params.section_id), SubTask: 0 })
         .then(response => {
             if (response.length === 0) {
                 return res.status(httpStatus.NOT_FOUND).send({ error: "Seçtiğiniz veride herhangi bir veri bulunamaktadır" });
@@ -14,7 +16,7 @@ const index = (req, res) => {
 }
 const create = (req, res) => {
     req.body.user_id = req.user.id;
-    insert(req.body).then((response) => {
+    TaskService.insert(req.body).then((response) => {
         res.status(httpStatus.CREATED).send(response);
     }).catch((e) => {
         res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e)
@@ -30,7 +32,7 @@ const update = (req, res) => {
         })
     }
 
-    modify(req.body, parseInt(req.params?.id))
+    TaskService.modify(req.body, parseInt(req.params?.id))
         .then((updatedProject) => {
             res.status(httpStatus.OK).send(updatedProject)
 
@@ -44,7 +46,7 @@ const deletedTask = (req, res) => {
             message: "Id Bilgisi Eksik."
         })
     }
-    remove({ id: parseInt(req.params?.id), SubTask: parseInt(req.params?.id) })
+    TaskService.remove({ id: parseInt(req.params?.id), SubTask: parseInt(req.params?.id) })
         .then((deletedProject) => {
             if (!deletedProject) {
                 return res.status(httpStatus.NOT_FOUND).send({
@@ -58,14 +60,14 @@ const deletedTask = (req, res) => {
 }
 
 const subTaskCreate = async (req, res) => {
-    const findTask = await list({ id: parseInt(req.params.task_id) })
+    const findTask = await TaskService.list({ id: parseInt(req.params.task_id) })
     if(findTask.length === 0){
       return res.status(httpStatus.NOT_FOUND).send({error : "Böyle bir section bulunamadı."})  
     }
     delete findTask[0].user
     delete findTask[0].id
     delete findTask[0].assigned
-    let createTask = await insert({
+    let createTask = await TaskService.insert({
         ...findTask[0],
         title: req.body.title,
         user_id: req.user.id,
@@ -84,7 +86,7 @@ const subTaskGet = (req, res) => {
         })
     }
 
-    list({ SubTask: parseInt(req.params.id) })
+    TaskService.list({ SubTask: parseInt(req.params.id) })
         .then(response => {
             if (response.length === 0) {
                 return res.status(httpStatus.NOT_FOUND).send({ error: "Seçtiğiniz veride herhangi bir veri bulunamaktadır" });
