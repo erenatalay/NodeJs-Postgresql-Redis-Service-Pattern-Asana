@@ -1,7 +1,7 @@
-const { insert, list, modify, remove } = require("../services/Tasks")
+const { insert, list, modify, remove } = require("../services/TaskService")
 const httpStatus = require("http-status");
-const Service = require("../services/Tasks")
-const TaskService = new Service();
+const TaskService = require("../services/TaskService")
+
 const index = (req, res) => {
 
     TaskService.list({ section_id: parseInt(req.params.section_id), SubTask: 0 })

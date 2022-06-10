@@ -1,14 +1,12 @@
-const projectService = require("../services/Projects")
 
 const httpStatus = require("http-status");
 const { passwordToHash, generateAccessToken, generateRefreshToken } = require("../scripts/utils/helper");
 const uuid = require("uuid");
 const eventEmitter = require("../scripts/events/eventEmitter");
 const path = require("path");
-const Service = require("../services/Users")
-const UserService = new Service();
-const ProjectService = require("../services/Projects")
-const ProjectServices = new ProjectService();
+const UserService = require("../services/UserService")
+const ProjectService = require("../services/ProjectService")
+
 
 const index = (req, res) => {
 
@@ -51,7 +49,7 @@ const create = (req, res) => {
 }
 
 const projectList = (req, res) => {
-    ProjectServices.list({ user_id: req.user.id }).then(projects => {
+    ProjectService.list({ user_id: req.user.id }).then(projects => {
         res.status(httpStatus.OK).send(projects);
     }).catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
         error: "Projeleri getiririken belirlenmedik bir hata oluştu."

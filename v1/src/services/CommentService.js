@@ -2,7 +2,7 @@ const BaseService = require("./BaseService");
 const { PrismaClient } = require('@prisma/client');
 const BaseModel = new PrismaClient();
 
-class Comment extends BaseService {
+class CommentService extends BaseService {
     constructor(){
         super(BaseModel.comments)
     }
@@ -27,4 +27,4 @@ class Comment extends BaseService {
     }
 }
 
-module.exports = Comment;
+module.exports = new CommentService();

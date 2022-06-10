@@ -1,6 +1,5 @@
 const httpStatus = require("http-status");
-const Service = require("../services/Comment")
-const CommentService = new Service();
+const Service = require("../services/CommentService")
 const index = (req, res) => {
     CommentService.list({task_id : parseInt(req.params.task_id)})
     .then(response => {

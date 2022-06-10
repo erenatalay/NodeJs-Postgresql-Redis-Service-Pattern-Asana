@@ -1,6 +1,6 @@
 const httpStatus = require("http-status");
-const Service = require("../services/Sections")
-const SectionService = new Service();
+const SectionService = require("../services/SectionService")
+
 const index = (req, res) => {
     if (!req.params.projectId ) {
         return res.status(httpStatus.BAD_REQUEST).send({ error: "Proje Bilgisi eksik" });

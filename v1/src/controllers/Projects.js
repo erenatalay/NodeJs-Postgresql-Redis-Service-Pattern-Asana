@@ -1,6 +1,5 @@
 const httpStatus = require("http-status");
-const Service = require("../services/Projects")
-const ProjectService = new Service();
+const ProjectService = require("../services/ProjectService")
 
 const index = (req, res) => {
     ProjectService.list()
