@@ -1,15 +1,15 @@
 
 const express = require("express");
 const router = express.Router();
-const { index, create, update, deletedTask, subTaskCreate,subTaskGet } = require("../controllers/Tasks");
+const TasksController = require("../controllers/Tasks");
 const authenticate = require("../middlewares/authenticate");
 const validate = require("../middlewares/validate");
 const schema = require("../validations/Tasks")
-router.get("/:section_id", authenticate, index)
-router.get("/subtask/:id", authenticate, subTaskGet)
-router.post("/", authenticate, validate(schema.createValidation), create)
-router.delete("/:id", authenticate, deletedTask)
-router.patch("/:id", authenticate, validate(schema.updateValidation), update)
-router.post("/:task_id",authenticate,subTaskCreate)
+router.get("/:section_id", authenticate, TasksController.index)
+router.get("/subtask/:id", authenticate, TasksController.subTaskGet)
+router.post("/", authenticate, validate(schema.createValidation), TasksController.create)
+router.delete("/:id", authenticate, TasksController.deletedTask)
+router.patch("/:id", authenticate, validate(schema.updateValidation), TasksController.update)
+router.post("/:task_id",authenticate,TasksController.subTaskCreate)
 
 module.exports = router;

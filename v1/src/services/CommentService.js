@@ -9,7 +9,7 @@ class CommentService extends BaseService {
 
      list (where) {
         if (where) {
-            return BaseModel.comments({
+            return BaseModel.comments.findMany({
                 where,
                 include: {
                     user: true,
@@ -18,7 +18,7 @@ class CommentService extends BaseService {
                 },
             });
         }
-        return BaseModel.comments({
+        return BaseModel.comments.findMany({
             include: {
                 user: true,
                 task: true
