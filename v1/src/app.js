@@ -6,6 +6,7 @@ const loaders = require("./loaders");
 const events = require("./scripts/events");
 const fileUpload = require("express-fileupload");
 const path = require("path")
+const errorHandler = require("./middlewares/errorHandler")
 config();
 loaders();
 events();
@@ -18,6 +19,15 @@ app.use(fileUpload());
 app.use("/api",routers);
 
 app.listen(process.env.APP_PORT,() => {
-    console.log(`${process.env.APP_PORT} Port Server Start`)
+
+    console.log(`${process.env.APP_PORT} Port Server Start`);
+
+    app.use((req,res,next) => {
+        const error = new Error("Aradığınız Sayfa Bulunamamaktadır");
+        error.status = 404;
+        next(error);
+    })
+
+    app.use(errorHandler);
   
 })

@@ -20,11 +20,11 @@ class BaseService {
     insert(data) {
         return this.BaseModel.create({ data })
     }
-    read(loginData) {
-        return this.BaseModel.findFirst({ where: loginData });
+    read(data) {
+        return this.BaseModel.findFirst({ where: data });
 
     }
-    update(id, data) {
+    modify(data, id) {
         return this.BaseModel.update({ data, where: { id } })
 
     }
