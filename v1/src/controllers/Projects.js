@@ -41,10 +41,7 @@ class Projects {
 
         ProjectService.modify(req.body, parseInt(req.params.id))
             .then((updatedProject) => {
-                console.log(updatedProject)
-                if (!updatedProject) {
-                    
-                }
+           
                 res.status(httpStatus.OK).send(updatedProject)
 
 
