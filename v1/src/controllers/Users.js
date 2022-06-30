@@ -82,12 +82,7 @@ class Users {
     }
 
     deleteUser(req, res) {
-        if (!req.params?.id) {
-            return res.status(httpStatus.BAD_REQUEST).send({
-                message: "Id Bilgisi Eksik."
-            })
-        }
-
+    
         UserService.remove(parseInt(req.params?.id))
             .then((deleteUsers) => {
                 if (!deleteUsers) {

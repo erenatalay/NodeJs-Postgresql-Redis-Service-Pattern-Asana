@@ -4,9 +4,7 @@ const SectionService = require("../services/SectionService")
 
 class Sections {
     index(req, res) {
-        if (!req.params.projectId) {
-            return res.status(httpStatus.BAD_REQUEST).send({ error: "Proje Bilgisi eksik" });
-        }
+     
         SectionService.list({ project_id: parseInt(req.params.projectId) })
             .then(response => {
                 if (response.length === 0) {
@@ -29,11 +27,7 @@ class Sections {
 
     update(req, res) {
 
-        if (!req.params?.id) {
-            return res.status(httpStatus.BAD_REQUEST).send({
-                message: "Id Bilgisi Eksik."
-            })
-        }
+     
 
         SectionService.modify(req.body, parseInt(req.params?.id))
             .then((updatedProject) => {
@@ -44,12 +38,7 @@ class Sections {
 
 
     deletedSection(req, res) {
-        if (!req.params?.id) {
-            return res.status(httpStatus.BAD_REQUEST).send({
-                message: "Id Bilgisi Eksik."
-            })
-        }
-
+     
         SectionService.remove(parseInt(req.params?.id))
             .then((deletedProject) => {
                 if (!deletedProject) {

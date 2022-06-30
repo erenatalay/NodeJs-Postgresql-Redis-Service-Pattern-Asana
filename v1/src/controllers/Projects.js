@@ -33,18 +33,11 @@ class Projects {
 
     update(req, res, next) {
 
-        if (!req.params.id) {
-            return res.status(httpStatus.BAD_REQUEST).send({
-                message: "Id Bilgisi Eksik."
-            })
-        }
 
         ProjectService.modify(req.body, parseInt(req.params.id))
             .then((updatedProject) => {
            
                 res.status(httpStatus.OK).send(updatedProject)
-
-
             }).catch(e => {
                 return next(new ApiError("Böyle bir kayıt bulunmamaktadır", 404))
             })
@@ -52,11 +45,6 @@ class Projects {
 
 
     deletedProject(req, res) {
-        if (!req.params.id) {
-            return res.status(httpStatus.BAD_REQUEST).send({
-                message: "Id Bilgisi Eksik."
-            })
-        }
 
         ProjectService.remove(parseInt(req.params.id))
             .then((deletedProject) => {

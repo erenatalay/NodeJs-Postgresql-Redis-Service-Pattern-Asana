@@ -29,11 +29,7 @@ class Tasks {
 
     update(req, res) {
 
-        if (!req.params?.id) {
-            return res.status(httpStatus.BAD_REQUEST).send({
-                message: "Id Bilgisi Eksik."
-            })
-        }
+    
 
         TaskService.modify(req.body, parseInt(req.params?.id))
             .then((updatedProject) => {
@@ -44,11 +40,7 @@ class Tasks {
 
 
     deletedTask(req, res) {
-        if (!req.params?.id) {
-            return res.status(httpStatus.BAD_REQUEST).send({
-                message: "Id Bilgisi Eksik."
-            })
-        }
+   
         TaskService.remove({ id: parseInt(req.params?.id), SubTask: parseInt(req.params?.id) })
             .then((deletedProject) => {
                 if (!deletedProject) {
@@ -83,12 +75,7 @@ class Tasks {
 
     subTaskGet(req, res) {
 
-        if (!req.params?.id) {
-            return res.status(httpStatus.BAD_REQUEST).send({
-                message: "Id Bilgisi Eksik."
-            })
-        }
-
+   
         TaskService.list({ SubTask: parseInt(req.params.id) })
             .then(response => {
                 if (response.length === 0) {

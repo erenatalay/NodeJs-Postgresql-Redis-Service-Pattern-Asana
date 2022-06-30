@@ -22,11 +22,6 @@ class Comment {
 
     update(req, res) {
 
-        if (!req.params?.id) {
-            return res.status(httpStatus.BAD_REQUEST).send({
-                message: "Id Bilgisi Eksik."
-            })
-        }
 
         CommentService.modify(req.body, parseInt(req.params?.id))
             .then((updatedProject) => {
@@ -37,12 +32,7 @@ class Comment {
 
 
     deletedProject(req, res) {
-        if (!req.params?.id) {
-            return res.status(httpStatus.BAD_REQUEST).send({
-                message: "Id Bilgisi Eksik."
-            })
-        }
-
+  
         CommentService.remove(parseInt(req.params?.id))
             .then((deletedProject) => {
                 if (!deletedProject) {
