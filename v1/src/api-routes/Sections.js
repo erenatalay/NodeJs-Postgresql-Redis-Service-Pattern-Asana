@@ -7,10 +7,10 @@ const validate = require("../middlewares/validate");
 const idChecker = require("../middlewares/idChecker");
 
 const schema = require("../validations/Sections")
-router.get("/:projectId",authenticate,SectionController.index)
+router.get("/:projectId",idChecker("projectId"),authenticate,SectionController.index)
 router.post("/",authenticate,validate(schema.createValidation),SectionController.create)
-router.delete("/:id",idChecker,authenticate,SectionController.deletedSection)
-router.patch("/:id",idChecker,authenticate,validate(schema.updateValidation),SectionController.update)
+router.delete("/:id",idChecker(),authenticate,SectionController.deletedSection)
+router.patch("/:id",idChecker(),authenticate,validate(schema.updateValidation),SectionController.update)
 
 
 module.exports = router

@@ -6,11 +6,11 @@ const authenticate = require("../middlewares/authenticate");
 const idChecker = require("../middlewares/idChecker");
 const validate = require("../middlewares/validate");
 const schema = require("../validations/Tasks")
-router.get("/:section_id", authenticate, TasksController.index)
-router.get("/subtask/:id", idChecker,authenticate, TasksController.subTaskGet)
+router.get("/:section_id", idChecker("section_id"),authenticate, TasksController.index)
+router.get("/subtask/:id", idChecker(),authenticate, TasksController.subTaskGet)
 router.post("/", authenticate, validate(schema.createValidation), TasksController.create)
-router.delete("/:id", idChecker,authenticate, TasksController.deletedTask)
-router.patch("/:id", idChecker,authenticate, validate(schema.updateValidation), TasksController.update)
-router.post("/:task_id",authenticate,TasksController.subTaskCreate)
+router.delete("/:id", idChecker(),authenticate, TasksController.deletedTask)
+router.patch("/:id", idChecker(),authenticate, validate(schema.updateValidation), TasksController.update)
+router.post("/:task_id",idChecker("task_id"),authenticate,TasksController.subTaskCreate)
 
 module.exports = router;
