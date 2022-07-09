@@ -1,6 +1,11 @@
 const BaseService = require("./BaseService");
 const { PrismaClient } = require('@prisma/client');
 const BaseModel = new PrismaClient();
+const logger = require("../scripts/logger/Tasks");
+const prismaLog = require("../scripts/logger/prismaLog");
+
+prismaLog(BaseModel,logger)
+
 class TaskService extends BaseService {
     constructor() {
         super(BaseModel.task);

@@ -1,20 +1,18 @@
 const BaseService = require("./BaseService");
 const { PrismaClient } = require('@prisma/client');
 const BaseModel = new PrismaClient();
-const logger = require("../scripts/logger/Section")
+const logger = require("../scripts/logger/Section");
+const prismaLog = require("../scripts/logger/prismaLog");
 
-  BaseModel.$use(async (params, next) => {
-    const result = await next(params)
-    logger.log({
-        level: "info",
-        message: params?.args?.data
-      })
-    return result
-  })
-  
+
+prismaLog(BaseModel,logger)
+
+
+
 class SectionService extends BaseService {
     constructor(){
         super(BaseModel.section)
+        
     }
 
     

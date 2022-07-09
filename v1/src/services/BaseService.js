@@ -1,7 +1,11 @@
 
+
+
 class BaseService {
     constructor(model) {
         this.BaseModel = model;
+
+       
 
     }
 
