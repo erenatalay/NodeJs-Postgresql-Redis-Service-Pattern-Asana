@@ -1,11 +1,15 @@
 const httpStatus = require("http-status");
 const ProjectService = require("../services/ProjectService")
 const ApiError = require("../errors/ApiError")
+const redisClient = require("../scripts/cache")
 
 class Projects {
     index(req, res) {
+    redisClient.connect()
+
         ProjectService.list()
             .then(response => {
+                redisClient.set("project",JSON.stringify(response))
                 res.status(httpStatus.OK).send(response)
             }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e))
 
