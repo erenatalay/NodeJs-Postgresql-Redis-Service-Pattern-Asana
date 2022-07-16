@@ -7,9 +7,12 @@ const events = require("./scripts/events");
 const fileUpload = require("express-fileupload");
 const path = require("path")
 const errorHandler = require("./middlewares/errorHandler")
+const redisClient = require("./scripts/cache")
+
 config();
 loaders();
 events();
+
 const app = express();
 app.use("/uploads",express.static(path.join(__dirname,"./","uploads")));
 app.use(express.json());
@@ -17,6 +20,7 @@ app.use(helmet());
 app.use(fileUpload());
 //routers
 app.use("/api",routers);
+redisClient.connect()
 
 app.listen(process.env.APP_PORT,() => {
 
