@@ -1,7 +1,8 @@
 const httpStatus = require("http-status");
 const ProjectService = require("../services/ProjectService")
 const ApiError = require("../errors/ApiError");
-const cacheData = require("../helpers/RedisEvent") ;
+const cacheData = require("../helpers/RedisEvent");
+const redisClient = require("../scripts/cache")
 
 
 class Projects {
@@ -10,7 +11,7 @@ class Projects {
         const projects = await cacheData("projects", () => {
             return ProjectService.list().then(response => {
                 return response
-                
+
             }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e))
 
 
@@ -32,6 +33,7 @@ class Projects {
     create(req, res) {
         req.body.user_id = req.user.id;
         ProjectService.insert(req.body).then((response) => {
+            redisClient.del("projects")
             res.status(httpStatus.CREATED).send(response);
         }).catch((e) => {
             res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e)
@@ -44,6 +46,7 @@ class Projects {
 
         ProjectService.modify(req.body, parseInt(req.params.id))
             .then((updatedProject) => {
+                redisClient.del("projects")
 
                 res.status(httpStatus.OK).send(updatedProject)
             }).catch(e => {
@@ -61,6 +64,8 @@ class Projects {
                         message: "Böyle bir kayıt bulunmamaktadır."
                     })
                 }
+                redisClient.del("projects")
+
                 res.status(httpStatus.OK).send({ message: "Proje silinmiştir" })
 
             }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: "Kayıt silme sırasında bir problem oluştu" }))
